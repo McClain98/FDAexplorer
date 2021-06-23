@@ -26,8 +26,9 @@ import sys
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = []
+extensions = ['myst_parser']
 
+source_suffix = ['.rst', '.md']
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -164,7 +165,7 @@ html_static_path = ['_static']
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'FDAExplorerdoc'
+htmlhelp_basename = 'fdaexplorerdoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -184,7 +185,7 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
     ('index',
-     'FDAExplorer.tex',
+     'fdaexplorer.tex',
      u'FDAExplorer Documentation',
      u"McClain Thiel", 'manual'),
 ]
@@ -215,7 +216,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'FDAExplorer', u'FDAExplorer Documentation',
+    ('index', 'fdaexplorer', u'FDAExplorer Documentation',
      [u"McClain Thiel"], 1)
 ]
 
@@ -229,9 +230,9 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('index', 'FDAExplorer', u'FDAExplorer Documentation',
+    ('index', 'fdaexplorer', u'FDAExplorer Documentation',
      u"McClain Thiel", 'FDAExplorer',
-     'Search FDA 510(k) database for similar application and new products', 'Miscellaneous'),
+     'The goal of this project is to build a tool that allows users to easily search the FDA 510(K) patent database in a more effective way.', 'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.
