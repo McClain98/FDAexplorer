@@ -6,11 +6,14 @@
 FDAExplorer documentation!
 ==============================================
 
+
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
+   introduction
+   background
    getting-started
    commands
 
