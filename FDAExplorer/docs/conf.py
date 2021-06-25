@@ -13,6 +13,7 @@
 
 import os
 import sys
+sys.path.insert(0, os.path.abspath('..'))
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -26,14 +27,13 @@ import sys
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['myst_parser']
+extensions = ['myst_parser', 'sphinx.ext.autodoc', 'sphinx.ext.coverage', 'sphinx.ext.napoleon']
 
 source_suffix = ['.rst', '.md']
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
 # The suffix of source filenames.
-source_suffix = '.rst'
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'

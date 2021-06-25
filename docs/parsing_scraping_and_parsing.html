@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Parsing, Scraping and Parsing &#8212; FDAExplorer 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting started" href="getting-started.html" />
+    <link rel="prev" title="Background" href="background.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="getting-started.html" title="Getting started"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="background.html" title="Background"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">FDAExplorer 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Parsing, Scraping and Parsing</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="parsing-scraping-and-parsing">
+<h1>Parsing, Scraping and Parsing<a class="headerlink" href="#parsing-scraping-and-parsing" title="Permalink to this headline">¶</a></h1>
+<p>This will walk you through the functions to parse and scrape
+and then parse the scrapped data for this project. Hopfully
+end users won’t need to see this and it will all only be for other
+devs  but I guess we’ll see.</p>
+<span class="target" id="module-src.data.metadata"></span><dl class="py function">
+<dt class="sig sig-object py" id="src.data.metadata.build_df">
+<span class="sig-prename descclassname"><span class="pre">src.data.metadata.</span></span><span class="sig-name descname"><span class="pre">build_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.metadata.build_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds DF of metadata from FDA 510(k) applications</p>
+<p>This function builds a dataframe that displays all the metadata on 510(k) applications from 1976 to 1995.The more recent
+metadata will need different functionality because it needs to be continuously refreshed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>clean</strong> – (bool, default = False)  Not yet implemented. If true, will do some basic cleaning like removing NaNs before returning</p></li>
+<li><p><strong>convert_dt</strong> – (bool, default =True) If true, date columns will bec converted to datetime objects.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns a pandas DataFrame containing metadata on all applications for 510(k) for medical devices from 1976 to 1995 with the following columns: [‘KNUMBER’, ‘APPLICANT’, ‘CONTACT’, ‘STREET1’, ‘STREET2’, ‘CITY’, ‘STATE’, ‘COUNTRY_CODE’, ‘ZIP’, ‘POSTAL_CODE’, ‘DATERECEIVED’, DECISIONDATE’, ‘DECISION’, ‘REVIEWADVISECOMM’, ‘PRODUCTCODE’, ‘STATEORSUMM’, ‘CLASSADVISECOMM’, ‘SSPINDICATOR’, ‘TYPE’, ‘THIRDPARTY’, ‘EXPEDITEDREVIEW’, ‘DEVICENAME’]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – Probably means file wasn’t found. Did you run ./get_legacy_data.sh in the data/raw directory?</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data.metadata.fetch_summary_pdf">
+<span class="sig-prename descclassname"><span class="pre">src.data.metadata.</span></span><span class="sig-name descname"><span class="pre">fetch_summary_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k_number</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'data/raw/pdf'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.metadata.fetch_summary_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads a pdf of a summary given a k_number</p>
+<p>Fetches a pdf given a k number and saves it to a given directory. Note that many of these applications
+don’t hav e summaries associated with them (especially the older ones.) If you enter a k_number value
+that doesn’t have a summary this will raise an error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k_number</strong> – (str) The k number of the document. This is the number that the FDA uses to identify these docs</p></li>
+<li><p><strong>save_location</strong> – ( str, pathlike, default = data/raw/pdf’)= The directory you want to save this in</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>save_path (str) the filepath where the file was saved</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Exception</strong> – If there is no pdf accoiated with the k_number or the k_number cannot be found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data.metadata.find_pdf">
+<span class="sig-prename descclassname"><span class="pre">src.data.metadata.</span></span><span class="sig-name descname"><span class="pre">find_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k_number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.metadata.find_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the URL for a PDF summary for a k_number</p>
+<p>This function will take a k_number you provide and look on the FDA site to try to find a summary
+pdf to go along with it. If it finds a summary pdf it will return the link to it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>k_number</strong> – (str) the string of the k_number of the document you are looking for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>url of the link to the pdf if found</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – This will raise an error if the k_number provided doesn’t have a url associated with
+                               it on the FDA website
+    Error: This will be thrown if the site doensn’t have an associated summary document with it</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="background.html"
+                        title="previous chapter">Background</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="getting-started.html"
+                        title="next chapter">Getting started</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/parsing_scraping_and_parsing.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="getting-started.html" title="Getting started"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="background.html" title="Background"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">FDAExplorer 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Parsing, Scraping and Parsing</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>
