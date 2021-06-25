@@ -48,7 +48,7 @@ def build_df(clean = False, convert_dt = True):
 
     return big_df
 
-def find_pdf(k_number):
+def find_summary_pdf(k_number):
     """Finds the URL for a PDF summary for a k_number
 
     This function will take a k_number you provide and look on the FDA site to try to find a summary
@@ -84,7 +84,7 @@ def find_pdf(k_number):
     raise Exception("Could not find PDF. This probably means that this application was submitted without a summary or that the robot killer finally found me. ")
 
 
-def fetch_summary_pdf(k_number, save_location='data/raw/pdf'):
+def fetch_summary_pdf(k_number, save_location='../data/raw/pdfs'):
     """Downloads a pdf of a summary given a k_number
 
     Fetches a pdf given a k number and saves it to a given directory. Note that many of these applications
@@ -103,7 +103,7 @@ def fetch_summary_pdf(k_number, save_location='data/raw/pdf'):
 
     """
     try:
-        url = find_pdf(k_number)
+        url = find_summary_pdf(k_number)
     except:
         raise FileExistsError("Could not retrive URL of pdf for accosiated k_number. It probably just doesn't exist")
 
